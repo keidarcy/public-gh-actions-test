@@ -3,7 +3,7 @@ on:
   push:
 
 env:
-  filepath: /tmp/a.txt
+  filename: a.txt
 
 jobs:
   test-file:
@@ -33,7 +33,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: my-artifact-1
-          path: /tmp/downloaded_artifact/
+          path: .
 
       - name: Add content to this file
         run: echo "This is a test" >> ${{ env.filepath }}
