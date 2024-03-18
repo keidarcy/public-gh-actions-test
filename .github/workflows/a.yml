@@ -1,0 +1,35 @@
+name: Artifacts Test
+on:
+  push:
+
+jobs:
+  test-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+      - name: Upload a file
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact-1
+          path: path/to/file.txt
+      - name: Write to a file
+        run: echo "Hello, world" > path/to/file.txt
+      - name: Download a file
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact-1
+          path: path/to/file.txt
+      - name: Add content to this file
+        run: echo "This is a test" >> path/to/file.txt
+      - name: Upload the updated file
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact-1
+          path: path/to/file.txt
