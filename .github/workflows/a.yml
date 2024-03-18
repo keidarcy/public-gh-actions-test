@@ -11,26 +11,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Run a one-line script
         run: echo Hello, world!
+
       - name: Run a multi-line script
         run: |
           echo Add other actions to build, > ${{ env.filepath }}
           echo test, and deploy your project. >> ${{ env.filepath }}
+
       - name: Upload a file
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact-1
           path: ${{ env.filepath }}
+
       - name: Write to a file
         run: echo "Hello, world" > ${{ env.filepath }}
+
       - name: Download a file
         uses: actions/download-artifact@v4
         with:
           name: my-artifact-1
-          path: ${{ env.filepath }}
+          path: /tmp/downloaded_artifact/
+
       - name: Add content to this file
         run: echo "This is a test" >> ${{ env.filepath }}
+
       - name: Upload the updated file
         uses: actions/upload-artifact@v4
         with:
