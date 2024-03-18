@@ -2,6 +2,9 @@ name: Artifacts Test
 on:
   push:
 
+env:
+  filepath: /tmp/a.txt
+
 jobs:
   test-file:
     runs-on: ubuntu-latest
@@ -12,24 +15,24 @@ jobs:
         run: echo Hello, world!
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo Add other actions to build, > ${{ env.filepath }}
+          echo test, and deploy your project. >> ${{ env.filepath }}
       - name: Upload a file
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact-1
-          path: path/to/file.txt
+          path: ${{ env.filepath }}
       - name: Write to a file
-        run: echo "Hello, world" > path/to/file.txt
+        run: echo "Hello, world" > ${{ env.filepath }}
       - name: Download a file
         uses: actions/download-artifact@v2
         with:
           name: my-artifact-1
-          path: path/to/file.txt
+          path: ${{ env.filepath }}
       - name: Add content to this file
-        run: echo "This is a test" >> path/to/file.txt
+        run: echo "This is a test" >> ${{ env.filepath }}
       - name: Upload the updated file
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact-1
-          path: path/to/file.txt
+          path: ${{ env.filepath }}
